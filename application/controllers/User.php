@@ -27,7 +27,8 @@ class User extends CI_Controller {
         $posts = $this->post_model->get_posts_by_location($id);
         if(empty($posts) == TRUE)
         {
-            echo 'No posts';
+            $message['message'] = 'No posts!';
+            $this->load->view('message', $message);
         }
         else {
             foreach ($posts as $post)

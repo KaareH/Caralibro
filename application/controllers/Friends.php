@@ -62,7 +62,8 @@ class Friends extends CI_Controller {
 
         $friend_list = $this->friend_model->get_friend_list($user->id);
         if(empty($friend_list)) {
-            echo "You have no friends";
+            $message['message'] = 'You have no friends.';
+            $this->load->view('message', $message);
         }
         else {
             foreach ($friend_list as $friend_row)
