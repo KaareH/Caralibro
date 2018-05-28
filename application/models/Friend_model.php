@@ -85,10 +85,22 @@ class Friend_model extends CI_Model {
         return array_merge($result_1, $result_2);
     }
 
+    public function get_friend_id_array($user)
+    {
+        $friend_list = $this->get_friend_list($user);
+        $friend_id_array = array();
+        foreach ($friend_list as $id)
+        {
+            $friend_id_array[] = $id->id;
+        }
+
+        return $friend_id_array;
+    }
+
     public function get_request_list($user)
     {
-        $query = $this->db->select('friend, timestamp')->from('friends')
-        ->where('friend', $user)->where('status', 'request')->get();
+        $query = $this->db->select('*')->from('friend_requests')
+        ->where('receiver', $user)->get();
 
         return $query->result();
     }

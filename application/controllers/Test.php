@@ -11,7 +11,7 @@ class Test extends CI_Controller {
 
     public function index()
     {
-        $this->friend_model->accept_request(1, 4);
+        $this->friend_model->send_request(7, 1);
 
 
     }

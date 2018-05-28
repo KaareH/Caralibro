@@ -45,10 +45,22 @@ class Friends extends CI_Controller {
         if($this->user_model->is_logged_in() == FALSE) show_error(401, 401);
 
         $user = $this->user_model->get_this_user();
-        $friend_list = $this->friend_model->get_friend_list($user->id);
 
         $data['title'] = 'Friends';
         $this->load->view('templates/header', $data);
+
+        $request_list = $this->friend_model->get_request_list($user->id);
+        if(!empty($request_list))
+        {
+            foreach ($request_list as $request_row)
+            {
+                $sender = $this->user_model->get_user($request_row->sender);
+                $sender->timestamp = $request_row->timestamp;
+                $this->load->view('friends/request', $sender);
+            }
+        }
+
+        $friend_list = $this->friend_model->get_friend_list($user->id);
         if(empty($friend_list)) {
             echo "You have no friends";
         }

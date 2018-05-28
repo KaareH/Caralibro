@@ -1,2 +1,4 @@
 application/config/
 application/sessions/
+.DS_Store
+application/controllers/Test.php
