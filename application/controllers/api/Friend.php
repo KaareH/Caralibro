@@ -6,6 +6,7 @@ class Friend extends CI_Controller {
         parent::__construct();
         $this->load->helper(array('form', 'url'));
         $this->load->model('friend_model');
+        $this->load->model('user_model');
     }
 
     public function request_friendship()

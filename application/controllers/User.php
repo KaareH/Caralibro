@@ -6,6 +6,7 @@ class User extends CI_Controller {
         parent::__construct();
         $this->load->model('user_model');
         $this->load->model('post_model');
+        $this->load->model('friend_model');
         $this->load->helper(array('form', 'url'));
     }
 
@@ -15,18 +16,43 @@ class User extends CI_Controller {
         {
             show_404();
         }
-        $row = $this->user_model->get_user($id);
-        if(empty($row))
+        $user = $this->user_model->get_user($id);
+        if(empty($user))
         {
             show_404();
         }
 
-        $data['title'] = "$row->firstname $row->lastname";
+        $data['title'] = "$user->firstname $user->lastname";
 
         $this->load->view('templates/header', $data);
         if($this->user_model->is_logged_in())
         {
-            $this->load->view('posts/create_post', array('location' => $row->id));
+            $this_user = $this->user_model->get_this_user();
+            if($this_user->id != $user->id)
+            {
+                if($this->friend_model->is_friends($this_user->id, $user->id))
+                {
+                    $this->load->view('friends/remove_button', array('id' => $user->id));
+                }
+                else
+                {
+                    if($this->friend_model->has_sent_request($user->id, $this_user->id))
+                    {
+                        $this->load->view('friends/accept_button', array('id' => $user->id));
+                        $this->load->view('friends/reject_button', array('id' => $user->id));
+                    }
+                    else if ($this->friend_model->has_sent_request($this_user->id, $user->id))
+                    {
+                        $this->load->view('message', array('message' => 'Friendship requested'));
+                    }
+                    else
+                    {
+                        $this->load->view('friends/request_button', array('id' => $user->id));
+                    }
+                }
+            }
+
+            $this->load->view('posts/create_post', array('location' => $user->id));
         }
         $posts = $this->post_model->get_posts_by_location($id);
         if(empty($posts) == TRUE)
