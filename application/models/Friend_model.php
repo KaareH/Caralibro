@@ -23,7 +23,16 @@ class Friend_model extends CI_Model {
         return FALSE;
     }
 
-    public function make_friends($id_1, $id_2)
+    public function has_sent_request($sender, $receiver)
+    {
+        $query = $this->db->select('*')->from('friend_requests')
+            ->where('sender', $sender)->where('receiver', $receiver)->get();
+        $row = $query->row();
+        if(isset($row)) return TRUE;
+        return FALSE;
+    }
+
+    public function make_friend($id_1, $id_2)
     {
         $data = array(
             'id_1' => $id_1,
@@ -32,7 +41,7 @@ class Friend_model extends CI_Model {
         $this->db->insert('friends', $data);
     }
 
-    public function remove_friends($id_1, $id_2)
+    public function remove_friend($id_1, $id_2)
     {
         $this->db
             ->group_start()
@@ -64,10 +73,10 @@ class Friend_model extends CI_Model {
         if($query->row() == NULL) show_404();
 
         $this->db->where('sender', $sender)->where('receiver', $receiver)->delete('friend_requests');
-        $this->make_friends($sender, $receiver);
+        $this->make_friend($sender, $receiver);
     }
 
-    public function reject_request($user, $friend)
+    public function reject_request($sender, $receiver)
     {
         $this->db->where('sender', $sender)->where('receiver', $receiver)->delete('friend_requests');
     }
