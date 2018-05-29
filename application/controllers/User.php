@@ -24,6 +24,10 @@ class User extends CI_Controller {
         $data['title'] = "$row->firstname $row->lastname";
 
         $this->load->view('templates/header', $data);
+        if($this->user_model->is_logged_in())
+        {
+            $this->load->view('posts/create_post', array('location' => $row->id));
+        }
         $posts = $this->post_model->get_posts_by_location($id);
         if(empty($posts) == TRUE)
         {
