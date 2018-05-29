@@ -67,7 +67,7 @@ class Friend_model extends CI_Model {
         $this->make_friends($sender, $receiver);
     }
 
-    public function deny_request($user, $friend)
+    public function reject_request($user, $friend)
     {
         $this->db->where('sender', $sender)->where('receiver', $receiver)->delete('friend_requests');
     }
