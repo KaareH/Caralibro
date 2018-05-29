@@ -1,14 +1,13 @@
 <?php echo validation_errors(); ?>
 
 <?php echo form_open('login'); ?>
+<h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
 
-<h5>Email Address</h5>
-<input type="text" name="email" value="<?php echo set_value('email'); ?>" size="50" />
+<input type="text" name="email" class="form-control" placeholder="Email address" required autofocus value="<?php echo set_value('email'); ?>">
 
-<h5>Password</h5>
-<input type="text" name="password" value="<?php echo set_value('password'); ?>" size="50" />
-
-<div><input type="submit" value="Login" /></div>
+<input type="password" name="password" class="form-control" placeholder="Password" required value="<?php echo set_value('password'); ?>">
+<br>
+ <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
 
 </form>
 
