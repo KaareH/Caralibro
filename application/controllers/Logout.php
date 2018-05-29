@@ -14,6 +14,8 @@ class Logout extends CI_Controller {
     $data['title'] = 'Logout';
 
     $this->load->view('templates/header', $data);
+    $message['message'] = 'Logout successful.';
+    $this->load->view('message', $message);
     $this->load->view('templates/footer');
   }
 

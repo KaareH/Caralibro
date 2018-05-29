@@ -73,6 +73,7 @@ class Friends extends CI_Controller {
                 $this->load->view('friends/friend', $friend);
             }
         }
+        $this->load->view('templates/footer', $data);
 
     }
 
