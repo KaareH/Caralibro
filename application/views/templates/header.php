@@ -54,13 +54,23 @@
               <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
             </form>
         <ul class="navbar-nav ml-auto">
-            <?php if($this->user_model->is_logged_in()) {?>
+            <?php if($this->user_model->is_logged_in()) {
+                $this_user = $this->user_model->get_this_user();
+                ?>
           <li class="nav-item">
-            <a class="nav-link" href="/user/<?php echo $this->user_model->get_this_user()->id;?>">Your profile</a>
+            <a class="nav-link" href="/user/<?php echo $this_user->id;?>">Your profile</a>
           </li>
+          <?php $request_count = count($this->friend_model->get_request_list($this_user->id));
+          if($request_count > 0) {
+          ?>
+          <li class="nav-item">
+            <a class="nav-link" href="/friends">Friends<span class="badge badge-pill badge-danger"><?=$request_count?></span></a>
+          </li>
+      <?php } else { ?>
           <li class="nav-item">
             <a class="nav-link" href="/friends">Friends</a>
           </li>
+      <?php } ?>
           <li class="nav-item">
             <a class="nav-link" href="/logout">Logout</a>
           </li>
