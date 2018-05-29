@@ -6,6 +6,7 @@ class Post extends CI_Controller {
         parent::__construct();
         $this->load->model('post_model');
         $this->load->helper(array('form', 'url'));
+        $this->load->model('friend_model');
     }
 
 
