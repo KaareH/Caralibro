@@ -6,9 +6,6 @@
         <p><? echo anchor("user/$id", "$firstname $lastname")?></p>
         <p><?php echo "Friends since $timestamp"?></p>
 
-        <?php echo form_open('api/friend/remove_friendship'); ?>
-        <input type="hidden" name="friend_id" value="<?php echo $id?>">
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Remove friend</button>
-        </form>
+        <?php $this->load->view('friends/remove_button', array('id' => $id))?>
     </div>
 </div>
