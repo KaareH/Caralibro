@@ -17,6 +17,7 @@ class Feed extends CI_Controller {
             $data['title'] = 'Feed';
 
             $this->load->view('templates/header', $data);
+            $this->load->view('posts/create_post', array('location' => $user->id));
 
             $feed = $this->feed_model->get_feed($user->id);
             if(empty($feed))
