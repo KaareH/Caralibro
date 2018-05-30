@@ -10,6 +10,7 @@ class Feed_model extends CI_Model {
   public function get_feed($user_id)
   {
       $friend_ids = $this->friend_model->get_friend_id_array($user_id);
+      $friend_ids[] = $user_id;
       if(empty($friend_ids)) return;
 
       $query = $this->db->select('*')->from('posts')->where_in('owner', $friend_ids)->order_by('timestamp', 'DESC')->get();
