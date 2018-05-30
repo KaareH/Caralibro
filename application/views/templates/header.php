@@ -16,6 +16,7 @@
         min-height: 100%;
     }
     body {
+        padding-top: 3.5rem;
         margin-bottom: 80px; /* Margin bottom by footer height */
     }
     .footer {
@@ -32,7 +33,7 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-fixed-top navbar-expand-md navbar-light bg-light">
+    <nav class="navbar fixed-top navbar-expand-md navbar-light bg-light">
         <div class="container">
         <a class="navbar-brand col-md-2" href="/">Caralibro</a>
         <div class="collapse navbar-collapse" id="navbarCollapse">
