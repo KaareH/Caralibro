@@ -1,5 +1,5 @@
-<div class="row border grey bg-light mt-3">
-    <div class="col-md-12">
+<div class="card mt-3">
+    <div class="card-body">
         <p><?php echo $message?></p>
     </div>
 </div>
