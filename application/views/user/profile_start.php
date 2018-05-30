@@ -4,7 +4,7 @@
             <img src="<?=$profile->picture?>" alt="..." class="img-thumbnail my-3">
         </div>
         <div class="col-md-auto align-self-end">
-            <h1 class="display-4 text-white border-xl"><?="$profile->firstname $profile->lastname"?></h1>
+            <h1 class="display-4 text-white border-xl" style="text-shadow: 0 0 0.3rem #111"><?="$profile->firstname $profile->lastname"?></h1>
         </div>
         <div class="col-md-auto align-self-end pull-right ml-auto">
         <?php foreach ($profile->buttons as $button) {?>
