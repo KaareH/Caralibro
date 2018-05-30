@@ -48,6 +48,7 @@ class Friends extends CI_Controller {
 
         $data['title'] = 'Friends';
         $this->load->view('templates/header', $data);
+        $this->load->view('templates/page_start');
 
         $request_list = $this->friend_model->get_request_list($user->id);
         if(!empty($request_list))
@@ -73,6 +74,7 @@ class Friends extends CI_Controller {
                 $this->load->view('friends/friend', $friend);
             }
         }
+        $this->load->view('templates/page_end');
         $this->load->view('templates/footer', $data);
 
     }

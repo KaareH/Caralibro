@@ -9,7 +9,6 @@ class Post extends CI_Controller {
         $this->load->model('friend_model');
     }
 
-
     public function post($id = FALSE)
     {
         if($id == FALSE)
@@ -23,7 +22,9 @@ class Post extends CI_Controller {
         }
         $data['title'] = 'Post';
         $this->load->view('templates/header', $data);
+        $this->load->view('templates/page_start');
         $this->load->view('posts/post', $post);
+        $this->load->view('templates/page_end');
         $this->load->view('templates/footer', $data);
     }
 }

@@ -26,28 +26,15 @@
         line-height: 60px; /* Vertically center the text there */
         background-color: #f5f5f5;
     }
-
-
-    /* Custom page CSS
-    -------------------------------------------------- */
-    /* Not required for template or sticky footer method. */
-
-    .container {
-        width: auto;
-        max-width: 680px;
-        padding: 0 15px;
-    }
-
     </style>
 
     <title><?php echo $title?></title>
 </head>
 
 <body>
-
     <nav class="navbar navbar-fixed-top navbar-expand-md navbar-light bg-light">
-        <a class="navbar-brand" href="/">Caralibro</a>
         <div class="container">
+        <a class="navbar-brand col-md-2" href="/">Caralibro</a>
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <form class="form-inline mt-2 mt-md-0">
               <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
@@ -83,4 +70,3 @@
       </div>
   </div>
     </nav>
-    <main class="container">

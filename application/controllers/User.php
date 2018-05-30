@@ -25,6 +25,7 @@ class User extends CI_Controller {
         $data['title'] = "$user->firstname $user->lastname";
 
         $this->load->view('templates/header', $data);
+        $this->load->view('user/profile_start');
         if($this->user_model->is_logged_in())
         {
             $this_user = $this->user_model->get_this_user();
@@ -66,6 +67,7 @@ class User extends CI_Controller {
                 $this->load->view('posts/post', $post);
             }
         }
+        $this->load->view('user/profile_end');
         $this->load->view('templates/footer', $data);
 
     }
