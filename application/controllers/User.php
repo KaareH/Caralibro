@@ -22,10 +22,13 @@ class User extends CI_Controller {
             show_404();
         }
 
-        $data['title'] = "$user->firstname $user->lastname";
+        $this->load->view('templates/header', array('title' => "$user->firstname $user->lastname"));
+        $data['profile'] = new stdClass();
+        $data['profile']->firstname = $user->firstname;
+        $data['profile']->lastname = $user->lastname;
+        $data['profile']->biography = "Test biography. Hello, wolrd!";
 
-        $this->load->view('templates/header', $data);
-        $this->load->view('user/profile_start');
+        $this->load->view('user/profile_start', $data);
         if($this->user_model->is_logged_in())
         {
             $this_user = $this->user_model->get_this_user();
