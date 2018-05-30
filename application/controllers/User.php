@@ -39,7 +39,7 @@ class User extends CI_Controller {
             $data['profile']->biography = $user->biography;
         }
 
-        $this->load->view('user/profile_start', $data);
+        $data['profile']->buttons = array();
         if($this->user_model->is_logged_in())
         {
             $this_user = $this->user_model->get_this_user();
@@ -47,28 +47,34 @@ class User extends CI_Controller {
             {
                 if($this->friend_model->is_friends($this_user->id, $user->id))
                 {
-                    $this->load->view('friends/remove_button', array('id' => $user->id));
+                    $data['profile']->buttons[] = $this->load->view('friends/remove_button', array('id' => $user->id), TRUE);
                 }
                 else
                 {
                     if($this->friend_model->has_sent_request($user->id, $this_user->id))
                     {
-                        $this->load->view('friends/accept_button', array('id' => $user->id));
-                        $this->load->view('friends/reject_button', array('id' => $user->id));
+                        $data['profile']->buttons[] = $this->load->view('friends/accept_button', array('id' => $user->id), TRUE);
+                        $data['profile']->buttons[] = $this->load->view('friends/reject_button', array('id' => $user->id), TRUE);
                     }
                     else if ($this->friend_model->has_sent_request($this_user->id, $user->id))
                     {
-                        $this->load->view('message', array('message' => 'Friendship requested'));
+                        $data['profile']->buttons[] = $this->load->view('message', array('message' => 'Friendship requested'), TRUE);
                     }
                     else
                     {
-                        $this->load->view('friends/request_button', array('id' => $user->id));
+                        $data['profile']->buttons[] = $this->load->view('friends/request_button', array('id' => $user->id), TRUE);
                     }
                 }
             }
+        }
 
+        $this->load->view('user/profile_start', $data);
+
+        if($this->user_model->is_logged_in())
+        {
             $this->load->view('posts/create_post', array('location' => $user->id));
         }
+
         $posts = $this->post_model->get_posts_by_location($id);
         if(empty($posts) == TRUE)
         {

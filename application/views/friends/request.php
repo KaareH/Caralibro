@@ -10,10 +10,10 @@
                 <p><?php echo "Request received $timestamp"?></p>
 
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-auto">
                 <?php $this->load->view('friends/accept_button', array('id' => $id))?>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-auto">
                 <?php $this->load->view('friends/reject_button', array('id' => $id))?>
             </div>
             </div>
