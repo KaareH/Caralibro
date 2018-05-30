@@ -6,7 +6,7 @@
             </div>
             <div class="col-md-10">
                 <h5 class="card-title"><? echo anchor("user/$owner->id", "$owner->firstname $owner->lastname")?></h5>
-                <p class="card-meta">Posted: <?php echo $timestamp?></p>
+                <p class="text-muted">Posted: <?php echo $timestamp?></p>
             </div>
         </div>
     </div>
