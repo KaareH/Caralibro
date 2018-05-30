@@ -27,6 +27,17 @@ class User extends CI_Controller {
         $data['profile']->firstname = $user->firstname;
         $data['profile']->lastname = $user->lastname;
         $data['profile']->biography = "Test biography. Hello, wolrd!";
+        if(empty($user->picture)) {
+            $data['profile']->picture = 'http://www.teatro.it/old/2016-11/nobody_m.original.jpg';
+        } else {
+            $data['profile']->picture = $user->picture;
+        }
+        $data['profile']->cover_picture = $user->cover_picture;
+        if(empty($user->biography)) {
+            $data['profile']->biography = 'This user has no biography.';
+        } else {
+            $data['profile']->biography = $user->biography;
+        }
 
         $this->load->view('user/profile_start', $data);
         if($this->user_model->is_logged_in())
