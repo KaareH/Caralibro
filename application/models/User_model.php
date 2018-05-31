@@ -57,6 +57,7 @@ class User_model extends CI_Model {
 
   public function end_session()
   {
+    $this->session->set_userdata(array('logged_in' => FALSE));
     $this->session->sess_destroy();
   }
 
