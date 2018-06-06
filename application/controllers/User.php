@@ -26,9 +26,8 @@ class User extends CI_Controller {
         $data['profile'] = new stdClass();
         $data['profile']->firstname = $user->firstname;
         $data['profile']->lastname = $user->lastname;
-        $data['profile']->biography = "Test biography. Hello, wolrd!";
         if(empty($user->picture)) {
-            $data['profile']->picture = 'http://www.teatro.it/old/2016-11/nobody_m.original.jpg';
+            $data['profile']->picture = '/resources/images/no_picture.png';
         } else {
             $data['profile']->picture = $user->picture;
         }
