@@ -1,11 +1,5 @@
 var Post = Backbone.Model.extend({
-    url: '/api/post/get',
-    defaults: {
-        body: 'No body',
-        test: 'This is a test!',
-        owner: 'Kaare',
-        timestamp: '20 jan'
-    }
+    url: '/api/post/',
 });
 
 var Posts = Backbone.Collection.extend({
@@ -51,12 +45,34 @@ var PostsView = Backbone.View.extend({
 
 var postsView = new PostsView();
 
-$(document).ready(function() {
-    $('.get-post').on('click', function() {
-		var post = new Post({id: $('.post_id-input').val()}).fetch();
-		$('.post_id-input').val('');
+var CreatePostView = Backbone.View.extend({
+    model: new Post(),
+    initialize: function() {
+		this.template = _.template($('#crate_post-template').html());
+	},
+    events: {
+		'click .post-create-button': 'crate'
+    },
 
+    create: function() {
+        this
+    },
+
+	render: function() {
+		this.$el.html(this.template(this.model.toJSON()));
+		return this;
+	}
+});
+
+$(document).ready(function() {
+    $('.post-create-button').on('click', function() {
+		var post = new Post({
+			body: $('.body-input').val(),
+            location: '1'
+		});
+		$('.body-input').val('');
+        post.save();
 		console.log(post.toJSON());
-		posts.add(post);
-})
+		//blogs.add(blog);
+    })
 })

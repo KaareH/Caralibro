@@ -22,18 +22,29 @@ class Post extends REST_Controller {
         $user = $this->user_model->get_this_user();
         $data = array(
             'owner' => $user->id,
-            'location' => $this->input->post('location'),
-            'body' => $this->input->post('body')
+            'location' => $this->post('location'),
+            'body' => $this->post('body')
         );
         $this->post_model->create_post($data);
+
+        return $this->output
+        ->set_content_type('application/json')
+        ->set_status_header(200)
+        ->set_output(json_encode("success"));
     }
 
     public function index_get() {
         $array = $this->post_model->get_post($this->input->post('id'));
 
+        if(empty($array)) {
+            $status_code = 404;
+        } else {
+            $status_code = 200;
+        }
+
         return $this->output
         ->set_content_type('application/json')
-        ->set_status_header(200)
+        ->set_status_header($status_code)
         ->set_output(json_encode($array));
     }
 }
