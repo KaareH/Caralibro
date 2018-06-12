@@ -68,7 +68,7 @@ $(document).ready(function() {
     $('.post-create-button').on('click', function() {
 		var post = new Post({
 			body: $('.body-input').val(),
-            location: '1'
+            location: $('.location-input').val()
 		});
 		$('.body-input').val('');
         post.save();
