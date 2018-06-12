@@ -13,8 +13,12 @@ class Post extends REST_Controller {
         $this->load->model('user_model');
     }
 
-    public function index_create() {
-        if(!$this->user_model->is_logged_in()) show_error(401,401);
+    public function index_post() {
+        if(!$this->user_model->is_logged_in()) {
+            return $this->output
+            ->set_content_type('application/json')
+            ->set_status_header(401);
+        }
         $user = $this->user_model->get_this_user();
         $data = array(
             'owner' => $user->id,
@@ -31,6 +35,5 @@ class Post extends REST_Controller {
         ->set_content_type('application/json')
         ->set_status_header(200)
         ->set_output(json_encode($array));
-
     }
 }
