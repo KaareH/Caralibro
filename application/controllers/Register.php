@@ -5,6 +5,7 @@ class Register extends CI_Controller {
     {
         parent::__construct();
         $this->load->model('user_model');
+        $this->load->model('friend_model');
         $this->load->library('session');
         $this->load->helper(array('form', 'url'));
     }
