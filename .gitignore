@@ -1,3 +1,4 @@
 application/config/
 .DS_Store
 application/controllers/Test.php
+application/views/test.php
