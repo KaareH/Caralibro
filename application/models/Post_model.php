@@ -15,25 +15,28 @@ class Post_model extends CI_Model {
   public function get_post($id)
   {
       $query = $this->db->select('*')->from('posts')->where('id', $id)->get();
-      $result = $query->row();
+      $result = $query->row_array();
       if(empty($result)) return;
-      return $result;
+      
+      return $this->security->xss_clean($result);
   }
 
   public function get_posts_by_owner($owner)
   {
       $query = $this->db->select('*')->from('posts')->where('owner', $owner)->order_by('timestamp', 'DESC')->get();
-      $results = $query->result();
+      $results = $query->result_array();
       if(empty($results)) return;
-      return $results;
+
+      return $this->security->xss_clean($results);
   }
 
   public function get_posts_by_location($location)
   {
       $query = $this->db->select('*')->from('posts')->where('location', $location)->order_by('timestamp', 'DESC')->get();
-      $results = $query->result();
+      $results = $query->result_array();
       if(empty($results)) return;
-      return $results;
+
+      return $this->security->xss_clean($results);
   }
 
 }
