@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="/resources/libraries/bootstrap/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+    <link rel="stylesheet" href="/resources/libraries/bootstrap/css/bootstrap.min.css">
 
     <style>
     /* Sticky footer styles
@@ -30,6 +30,12 @@
     </style>
 
     <title><?php echo $title?></title>
+
+
+    <script src="/resources/libraries/jquery/jquery.min.js"></script>
+    <script src="/resources/libraries/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/resources/libraries/underscore/underscore-min.js"></script>
+    <script src="/resources/libraries/backbone.js/backbone-min.js"></script>
 </head>
 
 <body>

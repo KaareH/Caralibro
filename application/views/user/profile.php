@@ -26,6 +26,19 @@
             </div>
         </div>
         <div class="col-md-8">
+            <?php
+            if($this->user_model->is_logged_in()) {
+                $this->load->view('posts/create_post.php', array('location' => $profile->id));
+            };
+            ?>
+            <div class="posts-list">
+            </div>
+            <?php $this->load->view('posts/post');?>
+            <script src="/resources/js/post.js"></script>
+            <script>
+                var posts = new Posts([], { data: $.param({ profile: <?php echo $profile->id;?> })});
+                var postsView = new PostsView(posts);
+            </script>
         </div>
     </div>
 </main>

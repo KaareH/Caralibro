@@ -38,17 +38,16 @@ class Post extends REST_Controller {
         if($this->get('id')) {
             $array = $this->post_model->get_post($this->get('id'));
         } else {
-            if(!$this->user_model->is_logged_in()) {
-                return $this->output
-                ->set_content_type('application/json')
-                ->set_status_header(401);
-            }
-            $user = $this->user_model->get_this_user();
-
             if($this->get('feed')) {
+                if(!$this->user_model->is_logged_in()) {
+                    return $this->output
+                    ->set_content_type('application/json')
+                    ->set_status_header(401);
+                }
+                $user = $this->user_model->get_this_user();
                 $array = $this->feed_model->get_feed($user->id);
-            } else if($this->get('user')) {
-                $array = $this->post_model->get_posts_by_location($this->get('user'));
+            } else if($this->get('profile')) {
+                $array = $this->post_model->get_posts_by_location($this->get('profile'));
             }
         }
 

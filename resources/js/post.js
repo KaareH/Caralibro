@@ -3,10 +3,15 @@ var Post = Backbone.Model.extend({
 });
 
 var Posts = Backbone.Collection.extend({
+    initialize: function(models, options) {
+        this.options = options;
+    },
     url: '/api/post/',
-});
 
-var posts = new Posts();
+    fetch: function() {
+        return Backbone.Collection.prototype.fetch.call(this, this.options);
+    }
+});
 
 var PostView = Backbone.View.extend({
 	model: new Post(),
@@ -20,9 +25,10 @@ var PostView = Backbone.View.extend({
 });
 
 var PostsView = Backbone.View.extend({
-	model: posts,
+    model: null,
 	el: $('.posts-list'),
-	initialize: function() {
+	initialize: function(posts) {
+        this.model = posts;
 		var self = this;
 		this.model.on('add', this.render, this);
 		this.model.on('change', function() {
@@ -42,28 +48,8 @@ var PostsView = Backbone.View.extend({
 	}
 });
 
-var postsView = new PostsView();
-
-var CreatePostView = Backbone.View.extend({
-    model: new Post(),
-    initialize: function() {
-		this.template = _.template($('#crate_post-template').html());
-	},
-    events: {
-		'click .post-create-button': 'create'
-    },
-
-    create: function() {
-    },
-
-	render: function() {
-		this.$el.html(this.template(this.model.toJSON()));
-		return this;
-	}
-});
-
 $(document).ready(function() {
-    posts.fetch({data: {feed: true}});
+    posts.fetch();
     $('.post-create-button').on('click', function() {
 		var post = new Post({
 			body: $('.body-input').val(),
@@ -72,7 +58,7 @@ $(document).ready(function() {
 		$('.body-input').val('');
         post.save();
 		console.log(post.toJSON());
-        posts.fetch({data: {feed: true}});
+        posts.fetch();
 		//posts.add(post);
     })
 })
