@@ -23,8 +23,8 @@ class Post extends REST_Controller {
         $user = $this->user_model->get_this_user();
         $data = array(
             'owner' => $user->id,
-            'location' => $this->post('location'),
-            'body' => $this->post('body')
+            'location' => $this->security->xss_clean($this->post('location')),
+            'body' => $this->security->xss_clean($this->post('body'))
         );
         $this->post_model->create_post($data);
 
