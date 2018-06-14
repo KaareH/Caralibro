@@ -67,26 +67,8 @@ class User extends CI_Controller {
             }
         }
 
-        $this->load->view('user/profile_start', $data);
-
-        if($this->user_model->is_logged_in())
-        {
-            $this->load->view('posts/create_post', array('location' => $user->id));
-        }
-
-        $posts = $this->post_model->get_posts_by_location($id);
-        if(empty($posts) == TRUE)
-        {
-            $message['message'] = 'No posts!';
-            $this->load->view('message', $message);
-        }
-        else {
-            foreach ($posts as $post)
-            {
-                $this->load->view('posts/post', $post);
-            }
-        }
-        $this->load->view('user/profile_end');
+        $this->load->view('user/profile', $data);
+        
         $this->load->view('templates/footer', $data);
 
     }

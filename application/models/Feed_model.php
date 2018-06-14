@@ -16,13 +16,7 @@ class Feed_model extends CI_Model {
       $query = $this->db->select('*')->from('posts')->where_in('owner', $friend_ids)->order_by('timestamp', 'DESC')->get();
       $results = $query->result();
       if(empty($results)) return;
-
-      foreach ($results as $result)
-      {
-          $result->owner = $this->user_model->get_user($result->owner);
-          $result->location = $this->user_model->get_user($result->location);
-      }
-
+      
       return $results;
   }
 }

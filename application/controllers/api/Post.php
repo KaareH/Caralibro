@@ -11,6 +11,7 @@ class Post extends REST_Controller {
         $this->load->model('post_model');
         $this->load->helper(array('form', 'url'));
         $this->load->model('user_model');
+        $this->load->model('feed_model');
     }
 
     public function index_post() {
@@ -34,7 +35,22 @@ class Post extends REST_Controller {
     }
 
     public function index_get() {
-        $array = $this->post_model->get_post($this->input->post('id'));
+        if($this->get('id')) {
+            $array = $this->post_model->get_post($this->get('id'));
+        } else {
+            if(!$this->user_model->is_logged_in()) {
+                return $this->output
+                ->set_content_type('application/json')
+                ->set_status_header(401);
+            }
+            $user = $this->user_model->get_this_user();
+
+            if($this->get('feed')) {
+                $array = $this->feed_model->get_feed($user->id);
+            } else if($this->get('user')) {
+                $array = $this->post_model->get_posts_by_location($this->get('user'));
+            }
+        }
 
         if(empty($array)) {
             $status_code = 404;
