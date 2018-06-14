@@ -20,18 +20,32 @@ class Post extends REST_Controller {
             ->set_content_type('application/json')
             ->set_status_header(401);
         }
+        
         $user = $this->user_model->get_this_user();
         $data = array(
             'owner' => $user->id,
-            'location' => $this->security->xss_clean($this->post('location')),
-            'body' => $this->security->xss_clean($this->post('body'))
+            'location' => $this->post('location'),
+            'body' => html_escape($this->post('body'))
         );
-        $this->post_model->create_post($data);
+        $this->load->library('form_validation');
+        $this->form_validation->set_data($data);
 
-        return $this->output
-        ->set_content_type('application/json')
-        ->set_status_header(200)
-        ->set_output(json_encode("success"));
+        $this->form_validation->set_rules('location', 'Location', 'trim|integer|required');
+        $this->form_validation->set_rules('body', 'Body', 'trim|required');
+
+        if ($this->form_validation->run() == FALSE) {
+            return $this->output
+            ->set_content_type('application/json')
+            ->set_status_header(400);
+        }
+        else {
+            $this->post_model->create_post($data);
+
+            return $this->output
+            ->set_content_type('application/json')
+            ->set_status_header(201)
+            ->set_output(json_encode("success"));
+        }
     }
 
     public function index_get() {
