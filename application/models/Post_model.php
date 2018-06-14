@@ -17,9 +17,6 @@ class Post_model extends CI_Model {
       $query = $this->db->select('*')->from('posts')->where('id', $id)->get();
       $result = $query->row();
       if(empty($result)) return;
-
-      $result->owner = $this->user_model->get_user($result->owner);
-      $result->location = $this->user_model->get_user($result->location);
       return $result;
   }
 
@@ -28,12 +25,6 @@ class Post_model extends CI_Model {
       $query = $this->db->select('*')->from('posts')->where('owner', $owner)->order_by('timestamp', 'DESC')->get();
       $results = $query->result();
       if(empty($results)) return;
-
-      foreach ($results as $result)
-      {
-          $result->owner = $this->user_model->get_user($result->owner);
-          $result->location = $this->user_model->get_user($result->location);
-      }
       return $results;
   }
 
@@ -42,12 +33,6 @@ class Post_model extends CI_Model {
       $query = $this->db->select('*')->from('posts')->where('location', $location)->order_by('timestamp', 'DESC')->get();
       $results = $query->result();
       if(empty($results)) return;
-
-      foreach ($results as $result)
-      {
-          $result->owner = $this->user_model->get_user($result->owner);
-          $result->location = $this->user_model->get_user($result->location);
-      }
       return $results;
   }
 

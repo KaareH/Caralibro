@@ -17,22 +17,7 @@ class Feed extends CI_Controller {
             $data['title'] = 'Feed';
 
             $this->load->view('templates/header', $data);
-            $this->load->view('feed/feed_start');
-            $this->load->view('posts/create_post', array('location' => $user->id));
-
-            $feed = $this->feed_model->get_feed($user->id);
-            if(empty($feed))
-            {
-                $data['message'] = 'No feed available!';
-                $this->load->view('message', $data);
-            }
-            else
-            {
-                foreach ($feed as $post) {
-                    $this->load->view('posts/post', $post);
-                }
-            }
-            $this->load->view('feed/feed_end');
+            $this->load->view('feed/feed', array('location' => $user->id));
             $this->load->view('templates/footer', $data);
         }
         else {
