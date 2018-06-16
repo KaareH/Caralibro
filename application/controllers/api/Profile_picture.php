@@ -1,6 +1,9 @@
 <?php
-class Profile_picture extends CI_Controller {
+defined('BASEPATH') OR exit('No direct script access allowed');
 
+require APPPATH . 'libraries/REST_Controller.php';
+
+class Profile_picture extends REST_Controller {
     public function __construct()
     {
         parent::__construct();
@@ -8,7 +11,11 @@ class Profile_picture extends CI_Controller {
         $this->load->model('user_model');
     }
 
-    public function update() {
+    public function index_get() {
+        
+    }
+
+    public function index_post() {
         if(!$this->user_model->is_logged_in()) show_error(401,401);
         $user = $this->user_model->get_this_user();
 

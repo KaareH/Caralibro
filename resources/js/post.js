@@ -1,8 +1,8 @@
-var Post = Backbone.Model.extend({
+App.PostModel = Backbone.Model.extend({
     url: '/api/post/',
 });
 
-var Posts = Backbone.Collection.extend({
+App.PostCollection = Backbone.Collection.extend({
     initialize: function(models, options) {
         this.options = options;
     },
@@ -13,18 +13,43 @@ var Posts = Backbone.Collection.extend({
     }
 });
 
-var PostView = Backbone.View.extend({
-	model: new Post(),
-	initialize: function() {
-		this.template = _.template($('.posts-list-template').html());
+App.UserView = Backbone.View.extend({
+    initialize: function(params) {
+		this.template = _.template($('.user-view-template').html());
+        //this.model = App.users.get(params.owner_id);
+        this.model = new App.UserModel({id: params.owner_id});
+
+        var self = this;
+        this.model.fetch().done(function(){
+          self.render();
+        });
+
 	},
 	render: function() {
+        console.log("Userview render");
 		this.$el.html(this.template(this.model.toJSON()));
+        this.delegateEvents();
 		return this;
 	}
 });
 
-var PostsView = Backbone.View.extend({
+App.PostView = Backbone.View.extend({
+	initialize: function() {
+		this.template = _.template($('.posts-list-template').html());
+        _.bindAll(this, 'render');
+
+        this.userView = new App.UserView({owner_id: this.model.get('owner')});
+
+	},
+	render: function() {
+		this.$el.html(this.template(this.model.toJSON()));
+        this.$el.append(this.userView.$el);
+        //this.userView.render();
+		return this;
+	}
+});
+
+App.PostsView = Backbone.View.extend({
     model: null,
 	el: $('.posts-list'),
 	initialize: function(posts) {
@@ -42,16 +67,15 @@ var PostsView = Backbone.View.extend({
 		var self = this;
 		this.$el.html('');
 		_.each(this.model.toArray(), function(post) {
-			self.$el.append((new PostView({model: post})).render().$el);
+			self.$el.append((new App.PostView({model: post})).render().$el);
 		});
 		return this;
 	}
 });
 
 $(document).ready(function() {
-    posts.fetch();
     $('.post-create-button').on('click', function() {
-		var post = new Post({
+		var post = new App.PostModel({
 			body: $('.body-input').val(),
             location: $('.location-input').val()
 		});

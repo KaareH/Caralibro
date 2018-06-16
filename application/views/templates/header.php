@@ -30,12 +30,6 @@
     </style>
 
     <title><?php echo $title?></title>
-
-
-    <script src="/resources/libraries/jquery/jquery.min.js"></script>
-    <script src="/resources/libraries/bootstrap/js/bootstrap.min.js"></script>
-    <script src="/resources/libraries/underscore/underscore-min.js"></script>
-    <script src="/resources/libraries/backbone.js/backbone-min.js"></script>
 </head>
 
 <body>
