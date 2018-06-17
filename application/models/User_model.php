@@ -19,8 +19,7 @@ class User_model extends CI_Model {
   public function get_this_user()
   {
       $id = $this->session->userdata('id');
-      $query = $this->db->select('*')->from('users')->where('id', $id)->get();
-      return $query->row();
+      return $this->get_user($id);
   }
 
   public function get_user_id($email)
@@ -31,13 +30,7 @@ class User_model extends CI_Model {
 
   public function get_user($id)
   {
-    $query = $this->db->select('*')->from('users')->where('id', $id)->get();
-    return $query->row();
-  }
-
-  public function get_user_by_email($email)
-  {
-    $query = $this->db->select('*')->from('users')->where('email', $email)->get();
+    $query = $this->db->select('id, firstname, lastname, picture, cover_picture, email, biography')->from('users')->where('id', $id)->get();
     return $query->row();
   }
 
@@ -63,15 +56,21 @@ class User_model extends CI_Model {
 
   public function verify_login()
   {
-    $row = $this->get_user_by_email($this->input->post('email'));
-    if(isset($row))
-    {
-      if(password_verify($this->input->post('password'), $row->pass_hash))
+      $email = $this->input->post('email');
+      $password = $this->input->post('password');
+
+      $query = $this->db->select('pass_hash')->from('users')->where('email', $email)->get();
+      $row = $query->row();
+
+      if(isset($row))
       {
-        return TRUE;
+          $pass_hash = $row->pass_hash;
+          if(password_verify($password, $row->pass_hash))
+          {
+              return TRUE;
+          }
       }
-    }
-    return FALSE; //Error handling
+      return FALSE;
   }
 
   public function register_user()
