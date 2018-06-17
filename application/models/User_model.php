@@ -31,7 +31,10 @@ class User_model extends CI_Model {
   public function get_user($id)
   {
     $query = $this->db->select('id, firstname, lastname, picture, cover_picture, email, biography')->from('users')->where('id', $id)->get();
-    return $query->row();
+    $row = $query->row();
+    $picture = $row->picture;
+    if(!empty($picture)) $row->picture = '/uploads/' . $picture;
+    return $row;
   }
 
   public function start_session($id)
@@ -83,5 +86,12 @@ class User_model extends CI_Model {
     );
 
     return $this->db->insert('users', $data);
+  }
+
+  public function update_profile_picture($id, $file) {
+      $data = array(
+          'picture' => $file,
+      );
+      return $this->db->set('picture', $file)->where('id', $id)->update('users');
   }
 }

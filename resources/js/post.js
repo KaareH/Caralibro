@@ -37,6 +37,7 @@ App.PostCollection = Backbone.Collection.extend(
 App.PostView = Backbone.View.extend({
 	initialize: function() {
 		this.template = _.template($('.posts-list-template').html());
+        this.listenTo(this.model, "change", this.render);
         _.bindAll(this, 'render');
 	},
 	render: function() {

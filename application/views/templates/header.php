@@ -7,44 +7,13 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="/resources/libraries/bootstrap/css/bootstrap.min.css">
-
-    <style>
-    /* Sticky footer styles
-    -------------------------------------------------- */
-    html {
-        position: relative;
-        min-height: 100%;
-    }
-    body {
-        padding-top: 3.5rem;
-        margin-bottom: 80px; /* Margin bottom by footer height */
-    }
-    .footer {
-        position: absolute;
-        bottom: 0;
-        width: 100%;
-        height: 60px; /* Set the fixed height of the footer here */
-        line-height: 60px; /* Vertically center the text there */
-        background-color: #f5f5f5;
-    }
-
-    .square-image{
-        position:relative;
-        overflow:hidden;
-        padding-bottom:100%;
-    }
-    .square-image img{
-        position:absolute;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-    }
-    </style>
+    <link rel="stylesheet" href="/resources/css/basic.css">
 
     <title><?php echo $title?></title>
 </head>
 
 <body>
+    <div id="page-modal"></div>
     <nav class="navbar fixed-top navbar-expand-md navbar-light bg-light">
         <div class="container">
         <a class="navbar-brand col-md-2" href="/">Caralibro</a>

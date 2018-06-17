@@ -68,6 +68,7 @@ class User extends CI_Controller {
             }
         }
 
+        $data['scripts'][] = '<script src="/resources/js/profile.js"></script>';
         $data['scripts'][] =
         "<script>
             App.posts = new App.PostCollection([], { data: $.param({ profile: $profile_id}) });
