@@ -3,11 +3,13 @@
         <div class="card-header">
             <div class="row">
                 <div class="col-md-2">
-                    <% if (owner.picture != "") {%>
-                    <img src="<%= owner.picture %>" alt="..." class="img-thumbnail">
-                    <% } else {%>
-                    <img src="/resources/images/no_picture.png" alt="..." class="img-thumbnail">
-                    <% } %>
+                    <div class="square-image">
+                        <% if (owner.picture != "") {%>
+                        <img src="<%= owner.picture %>" alt="..." class="img-thumbnail">
+                        <% } else {%>
+                        <img src="/resources/images/no_picture.png" alt="..." class="img-thumbnail">
+                        <% } %>
+                    </div>
                 </div>
                 <div class="col-md-10">
                     <% if (owner != null) {%>

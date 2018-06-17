@@ -27,6 +27,18 @@
         line-height: 60px; /* Vertically center the text there */
         background-color: #f5f5f5;
     }
+
+    .square-image{
+        position:relative;
+        overflow:hidden;
+        padding-bottom:100%;
+    }
+    .square-image img{
+        position:absolute;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
     </style>
 
     <title><?php echo $title?></title>
