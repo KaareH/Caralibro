@@ -11,14 +11,15 @@ class Profile_picture extends REST_Controller {
         $this->load->model('user_model');
     }
 
-    public function index_get() {
-        
-    }
-
     public function index_post() {
-        if(!$this->user_model->is_logged_in()) show_error(401,401);
+        if(!$this->user_model->is_logged_in()) {
+            return $this->output
+            ->set_content_type('application/json')
+            ->set_status_header(401);
+        }
         $user = $this->user_model->get_this_user();
 
+        $config['encrypt_name']         = true;
         $config['upload_path']          = './uploads/';
         $config['allowed_types']        = 'gif|jpg|png';
         $config['max_size']             = 2048;
@@ -27,9 +28,27 @@ class Profile_picture extends REST_Controller {
 
         $this->load->library('upload', $config);
 
-        if ( ! $this->upload->do_upload('userfile'))
+        if (!$this->upload->do_upload('userfile'))
         {
-            show_error(400, 400);
+            return $this->output
+            ->set_content_type('application/json')
+            ->set_status_header(400)
+            ->set_output($this->upload->display_errors());
+        }
+        else {
+            $filename = $this->upload->data('file_name');
+
+            if($this->user_model->update_profile_picture($user->id, $filename)) {
+                return $this->output
+                ->set_content_type('application/json')
+                ->set_status_header(200)
+                ->set_output(json_encode(array("file_name" => $this->upload->data('file_name'))));
+            }
+            else {
+                return $this->output
+                ->set_content_type('application/json')
+                ->set_status_header(400);
+            }
         }
     }
 }
