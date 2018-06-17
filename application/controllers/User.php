@@ -68,8 +68,14 @@ class User extends CI_Controller {
             }
         }
 
-        $this->load->view('user/profile', $data);
+        $data['scripts'][] =
+        "<script>
+            App.posts = new App.PostCollection([], { data: $.param({ profile: $profile_id}) });
+            App.postsView = new App.PostsView(App.posts);
+            App.posts.fetch();
+        </script>";
 
+        $this->load->view('user/profile', $data);
         $this->load->view('templates/footer', $data);
 
     }

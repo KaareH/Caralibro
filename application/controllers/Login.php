@@ -33,8 +33,8 @@ class Login extends CI_Controller {
       {
         if($this->user_model->verify_login() === TRUE)
         {
-          $row = $this->user_model->get_user_by_email($this->input->post('email'));
-          $this->user_model->start_session($row->id);
+          $id = $this->user_model->get_user_id($this->input->post('email'));
+          $this->user_model->start_session($id);
           redirect('');
         }
         $this->load->view('user/login_form');

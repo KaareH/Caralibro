@@ -1,8 +1,28 @@
-var Post = Backbone.Model.extend({
-    url: '/api/post/',
+App.PostModel = Backbone.RelationalModel.extend(
+{
+    urlRoot: '/api/post/',
+    defaults: {
+        id: '',
+        body: '',
+        timestamp: '',
+    },
+
+    relations: [{
+        type: Backbone.HasOne,
+        key: 'owner',
+        autoFetch: true,
+        relatedModel: App.UserModel
+    }],
+
+    isNew: function() {
+        return !this.id;
+    }
 });
 
-var Posts = Backbone.Collection.extend({
+App.PostCollection = Backbone.Collection.extend(
+{
+    model: App.PostModel,
+
     initialize: function(models, options) {
         this.options = options;
     },
@@ -11,12 +31,13 @@ var Posts = Backbone.Collection.extend({
     fetch: function() {
         return Backbone.Collection.prototype.fetch.call(this, this.options);
     }
+
 });
 
-var PostView = Backbone.View.extend({
-	model: new Post(),
+App.PostView = Backbone.View.extend({
 	initialize: function() {
 		this.template = _.template($('.posts-list-template').html());
+        _.bindAll(this, 'render');
 	},
 	render: function() {
 		this.$el.html(this.template(this.model.toJSON()));
@@ -24,7 +45,7 @@ var PostView = Backbone.View.extend({
 	}
 });
 
-var PostsView = Backbone.View.extend({
+App.PostsView = Backbone.View.extend({
     model: null,
 	el: $('.posts-list'),
 	initialize: function(posts) {
@@ -42,23 +63,22 @@ var PostsView = Backbone.View.extend({
 		var self = this;
 		this.$el.html('');
 		_.each(this.model.toArray(), function(post) {
-			self.$el.append((new PostView({model: post})).render().$el);
+			self.$el.append((new App.PostView({model: post})).render().$el);
 		});
 		return this;
 	}
 });
 
 $(document).ready(function() {
-    posts.fetch();
+    App.posts.fetch();
     $('.post-create-button').on('click', function() {
-		var post = new Post({
+		var post = new App.PostModel({
 			body: $('.body-input').val(),
             location: $('.location-input').val()
 		});
 		$('.body-input').val('');
         post.save();
 		console.log(post.toJSON());
-        posts.fetch();
-		//posts.add(post);
+        App.posts.fetch();
     })
 })

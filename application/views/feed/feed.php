@@ -7,8 +7,3 @@
 </main>
 
 <?php $this->load->view('posts/post');?>
-<script src="/resources/js/post.js"></script>
-<script>
-    var posts = new Posts([], { data: $.param({ feed: true}) });
-    var postsView = new PostsView(posts);
-</script>

@@ -20,7 +20,7 @@ class Post extends REST_Controller {
             ->set_content_type('application/json')
             ->set_status_header(401);
         }
-        
+
         $user = $this->user_model->get_this_user();
         $data = array(
             'owner' => $user->id,
@@ -66,14 +66,14 @@ class Post extends REST_Controller {
         }
 
         if(empty($array)) {
-            $status_code = 404;
+            return $this->output
+            ->set_content_type('application/json')
+            ->set_status_header(404);
         } else {
-            $status_code = 200;
+            return $this->output
+            ->set_content_type('application/json')
+            ->set_status_header(200)
+            ->set_output(json_encode($array));
         }
-
-        return $this->output
-        ->set_content_type('application/json')
-        ->set_status_header($status_code)
-        ->set_output(json_encode($array));
     }
 }
