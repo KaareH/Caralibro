@@ -3,10 +3,14 @@
         <div class="card-header">
             <div class="row">
                 <div class="col-md-2">
-                    <img src="/resources/images/no_picture.png" alt="..." class="img-thumbnail">
+                    <% if (owner != null) {%>
+                    <img src="<%= owner.picture %>" alt="..." class="img-thumbnail">
+                    <% } %>
                 </div>
                 <div class="col-md-10">
-                    <h5 class="card-title">Name</h5>
+                    <% if (owner != null) {%>
+                    <h5 class="card-title"><%= owner.firstname + " " + owner.lastname %></h5>
+                    <% } %>
                     <p class="tex-muted">Posted: <%= timestamp %></p>
                 </div>
             </div>
