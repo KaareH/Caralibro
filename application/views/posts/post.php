@@ -9,7 +9,7 @@
                 </div>
                 <div class="col-md-10">
                     <% if (owner != null) {%>
-                    <h5 class="card-title"><%= owner.firstname + " " + owner.lastname %></h5>
+                    <h5 class="card-title"><a href="/user/<%= owner.id%>"><%= owner.firstname + " " + owner.lastname %></a></h5>
                     <% } %>
                     <p class="tex-muted">Posted: <%= timestamp %></p>
                 </div>
