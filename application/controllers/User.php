@@ -27,7 +27,7 @@ class User extends CI_Controller {
         $data['profile']->firstname = $profile->firstname;
         $data['profile']->lastname = $profile->lastname;
         $data['profile']->id = $profile->id;
-        if(empty($user->picture)) {
+        if(empty($profile->picture)) {
             $data['profile']->picture = '/resources/images/no_picture.png';
         } else {
             $data['profile']->picture = $profile->picture;

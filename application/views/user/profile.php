@@ -1,7 +1,9 @@
 <main class="container">
     <div class="row bg-dark" style="height: 20rem;background: url(<?=$profile->cover_picture?>) no-repeat center center; background-size: cover;">
         <div class="col-md-2 align-self-end">
-            <img src="<?=$profile->picture?>" alt="..." class="img-thumbnail my-3">
+            <div class="square-image my-3">
+                <img src="<?=$profile->picture?>" alt="..." class="img-thumbnail">
+            </div>
         </div>
         <div class="col-md-auto align-self-end">
             <h1 class="display-4 text-white border-xl" style="text-shadow: 0 0 0.3rem #111"><?="$profile->firstname $profile->lastname"?></h1>
