@@ -3,8 +3,10 @@
         <div class="card-header">
             <div class="row">
                 <div class="col-md-2">
-                    <% if (owner != null) {%>
+                    <% if (owner.picture != "") {%>
                     <img src="<%= owner.picture %>" alt="..." class="img-thumbnail">
+                    <% } else {%>
+                    <img src="/resources/images/no_picture.png" alt="..." class="img-thumbnail">
                     <% } %>
                 </div>
                 <div class="col-md-10">
