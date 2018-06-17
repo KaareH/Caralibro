@@ -15,6 +15,12 @@ class Feed extends CI_Controller {
         {
             $user = $this->user_model->get_this_user();
             $data['title'] = 'Feed';
+            $data['scripts'][] =
+            "<script>
+                App.posts = new App.PostCollection([], { data: $.param({ feed: true}) });
+                App.postsView = new App.PostsView(App.posts);
+                App.posts.fetch();
+            </script>";
 
             $this->load->view('templates/header', $data);
             $this->load->view('feed/feed', array('location' => $user->id));

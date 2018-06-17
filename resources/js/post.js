@@ -12,8 +12,11 @@ App.PostModel = Backbone.RelationalModel.extend(
         key: 'owner',
         autoFetch: true,
         relatedModel: App.UserModel
-    }]
+    }],
 
+    isNew: function() {
+        return !this.id;
+    }
 });
 
 App.PostCollection = Backbone.Collection.extend(
@@ -67,6 +70,7 @@ App.PostsView = Backbone.View.extend({
 });
 
 $(document).ready(function() {
+    App.posts.fetch();
     $('.post-create-button').on('click', function() {
 		var post = new App.PostModel({
 			body: $('.body-input').val(),
@@ -75,7 +79,6 @@ $(document).ready(function() {
 		$('.body-input').val('');
         post.save();
 		console.log(post.toJSON());
-        posts.fetch();
-		//posts.add(post);
+        App.posts.fetch();
     })
 })

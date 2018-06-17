@@ -34,11 +34,6 @@
             <div class="posts-list">
             </div>
             <?php $this->load->view('posts/post');?>
-            <script src="/resources/js/post.js"></script>
-            <script>
-                var posts = new Posts([], { data: $.param({ profile: <?php echo $profile->id;?> })});
-                var postsView = new PostsView(posts);
-            </script>
         </div>
     </div>
 </main>
