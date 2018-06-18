@@ -2,7 +2,9 @@
     <div class="card-body">
         <div class="row">
             <div class="col-md-2">
-                <img src="<?php echo !empty($picture) ? $picture : '/resources/images/no_picture.png';?>" alt="..." class="img-thumbnail m-1">
+                <div class="square-image">
+                    <img src="<?php echo !empty($picture) ? $picture : '/resources/images/no_picture.png';?>" alt="..." class="img-thumbnail">
+                </div>
             </div>
             <div class="col-md-10">
                 <p><? echo anchor("user/$id", "$firstname $lastname")?></p>
