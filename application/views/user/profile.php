@@ -3,7 +3,7 @@
         <div class="col-md-2 align-self-end">
             <div class="square-image my-3 edit-profile-picture">
                 <img src="<?=$profile->picture?>" alt="..." class="img-thumbnail">
-                <?php if($this->user_model->get_this_user()->id == $profile->id) {?>
+                <?php if($this->user_model->is_logged_in() && $this->user_model->get_this_user()->id == $profile->id) {?>
                 <div class="middle">
                     <button class="btn btn-primary btn-update-profile-picture">Change</button>
                  </div>

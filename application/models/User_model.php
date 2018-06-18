@@ -32,8 +32,10 @@ class User_model extends CI_Model {
   {
     $query = $this->db->select('id, firstname, lastname, picture, cover_picture, email, biography')->from('users')->where('id', $id)->get();
     $row = $query->row();
-    $picture = $row->picture;
-    if(!empty($picture)) $row->picture = '/uploads/' . $picture;
+    if(!empty($row)) {
+        $picture = $row->picture;
+        if(!empty($picture)) $row->picture = '/uploads/' . $picture;
+    }
     return $row;
   }
 
