@@ -1,5 +1,5 @@
 <main class="container">
-    <div class="row bg-dark" style="height: 20rem;background: url(<?=$profile->cover_picture?>) no-repeat center center; background-size: cover;">
+    <div class="row bg-dark" style="padding-top: 10rem;background: url(<?=$profile->cover_picture?>) no-repeat center center; background-size: cover;">
         <div class="col-md-2 align-self-end">
             <div class="square-image my-3 edit-profile-picture">
                 <img src="<?=$profile->picture?>" alt="..." class="img-thumbnail">
